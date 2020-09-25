@@ -22,12 +22,12 @@ public class Usuario extends Persona implements Serializable {
     public Usuario() {
     }
 
-    public Usuario(String usuario, String contraseña, ArrayList<Chat> chats, ArrayList<Usuario> amigos, int calidadConexion, String nombre, String apellido, int numeroTelefonico) {
+    public Usuario(String usuario, String contraseña, int calidadConexion, String nombre, String apellido, int numeroTelefonico) {
         super(nombre, apellido, numeroTelefonico);
         this.usuario = usuario;
         this.contraseña = contraseña;
-        this.chats = chats;
-        this.amigos = amigos;
+        this.chats = new ArrayList<>();
+        this.amigos = new ArrayList<>();
         this.calidadConexion = calidadConexion;
     }
 
@@ -74,58 +74,6 @@ public class Usuario extends Persona implements Serializable {
     @Override
     public String toString() {
         return super.toString() + " - " + usuario;
-    }
-
-    public void escribirChats() {
-        FileOutputStream fos = null;
-        ObjectOutputStream oos = null;
-        try {
-            File file = new File("./Usuarios/" + usuario + ".leogram");
-            fos = new FileOutputStream(file, false);
-            oos = new ObjectOutputStream(fos);
-
-            for (Chat chat : chats) {
-                oos.writeObject(chat);
-            }
-
-        } catch (FileNotFoundException ex) {
-        } catch (IOException ex) {
-            javax.swing.JOptionPane.showMessageDialog(null, "Error con archivo de " + usuario + " al escribir");
-        } finally {
-            try {
-                oos.close();
-                fos.close();
-            } catch (IOException ex) {
-            }
-        }
-    }
-
-    public void cargarChats() {
-        FileInputStream fis = null;
-        ObjectInputStream ois = null;
-        File file = new File("./Usuarios/" + usuario + ".leogram");
-        if (file.exists()) {
-            try {
-                fis = new FileInputStream(file);
-                ois = new ObjectInputStream(fis);
-                Chat chat;
-                chats = new ArrayList<>();
-
-                while ((chat = (Chat) ois.readObject()) != null) {
-                    chats.add(chat);
-                }
-
-            } catch (EOFException | ClassNotFoundException ex) {
-            } catch (IOException ex) {
-                javax.swing.JOptionPane.showMessageDialog(null, "Error con archivo de " + usuario + " al cargar");
-            } finally {
-                try {
-                    ois.close();
-                    fis.close();
-                } catch (IOException ex) {
-                }
-            }
-        }
     }
 
     @Override

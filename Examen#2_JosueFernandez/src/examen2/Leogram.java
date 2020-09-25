@@ -5,17 +5,33 @@
  */
 package examen2;
 
+import java.io.EOFException;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author IT
  */
 public class Leogram extends javax.swing.JFrame {
 
+    ArrayList<Usuario> usuarios = new ArrayList<>();
+    Usuario usuarioActual;
+
     /**
      * Creates new form Leogram
      */
     public Leogram() {
         initComponents();
+        this.setLocationRelativeTo(null);
+        cargarUsuarios();
     }
 
     /**
@@ -27,21 +43,444 @@ public class Leogram extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jd_crearUsuario = new javax.swing.JDialog();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        tf_nombre_Crear = new javax.swing.JTextField();
+        tf_apellido_Crear = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        ff_telefono_Crear = new javax.swing.JFormattedTextField();
+        tf_usuario_Crear = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        pf_contra_Crear = new javax.swing.JPasswordField();
+        pf_confirmacion_Crear = new javax.swing.JPasswordField();
+        jLabel9 = new javax.swing.JLabel();
+        bt_crearUsuario = new javax.swing.JButton();
+        bt_cancelarCreacion = new javax.swing.JButton();
+        jLabel11 = new javax.swing.JLabel();
+        sp_conexion_Crear = new javax.swing.JSpinner();
+        jd_ingreso = new javax.swing.JDialog();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        tf_usuario_Ingresar = new javax.swing.JTextField();
+        jLabel13 = new javax.swing.JLabel();
+        bt_iniciarSesion = new javax.swing.JButton();
+        bt_cancelarIngreso = new javax.swing.JButton();
+        pf_contra_Ingresar = new javax.swing.JPasswordField();
+        panel_fondo = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        menuBar = new javax.swing.JMenuBar();
+        jm_opciones = new javax.swing.JMenu();
+        jmi_iniciarSesion = new javax.swing.JMenuItem();
+        jmi_cerrarSesion = new javax.swing.JMenuItem();
+        jmi_crearUsuario = new javax.swing.JMenuItem();
+
+        jd_crearUsuario.setTitle("Nuevo Usuario");
+
+        jPanel1.setBackground(new java.awt.Color(255, 102, 0));
+        jPanel1.setForeground(new java.awt.Color(0, 255, 255));
+
+        jLabel3.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 153));
+        jLabel3.setText("Nuevo Usuario");
+
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setText("Nombre:");
+
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setText("Apellido");
+
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setText("Numero telefónico:");
+
+        ff_telefono_Crear.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
+
+        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel7.setText("Usuario:");
+
+        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel8.setText("Contraseña:");
+
+        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel9.setText("Confirmar ontraseña:");
+
+        bt_crearUsuario.setBackground(new java.awt.Color(0, 0, 0));
+        bt_crearUsuario.setForeground(new java.awt.Color(255, 255, 255));
+        bt_crearUsuario.setText("Crear Usuario");
+        bt_crearUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bt_crearUsuarioActionPerformed(evt);
+            }
+        });
+
+        bt_cancelarCreacion.setBackground(new java.awt.Color(255, 0, 0));
+        bt_cancelarCreacion.setForeground(new java.awt.Color(255, 255, 255));
+        bt_cancelarCreacion.setText("Cancelar");
+        bt_cancelarCreacion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bt_cancelarCreacionActionPerformed(evt);
+            }
+        });
+
+        jLabel11.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel11.setText("Calidad de conexión a WIFI:");
+
+        sp_conexion_Crear.setModel(new javax.swing.SpinnerNumberModel(5, 1, 5, 1));
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel3)
+                .addGap(200, 200, 200))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(35, 35, 35)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(pf_contra_Crear, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(ff_telefono_Crear, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(tf_nombre_Crear, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE))
+                            .addComponent(jLabel6))
+                        .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.LEADING))
+                    .addComponent(jLabel8)
+                    .addComponent(sp_conexion_Crear, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(bt_cancelarCreacion)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(bt_crearUsuario))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel5)
+                            .addComponent(tf_apellido_Crear, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel7)
+                            .addComponent(tf_usuario_Crear, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(pf_confirmacion_Crear, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel9))))
+                .addGap(35, 35, 35))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tf_nombre_Crear, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tf_apellido_Crear, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(28, 28, 28)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel7)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tf_usuario_Crear, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(ff_telefono_Crear, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(28, 28, 28)))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel8)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(pf_contra_Crear, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel9)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(pf_confirmacion_Crear, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(28, 28, 28)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(bt_crearUsuario)
+                            .addComponent(bt_cancelarCreacion)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel11)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(sp_conexion_Crear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 28, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+
+        javax.swing.GroupLayout jd_crearUsuarioLayout = new javax.swing.GroupLayout(jd_crearUsuario.getContentPane());
+        jd_crearUsuario.getContentPane().setLayout(jd_crearUsuarioLayout);
+        jd_crearUsuarioLayout.setHorizontalGroup(
+            jd_crearUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jd_crearUsuarioLayout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        jd_crearUsuarioLayout.setVerticalGroup(
+            jd_crearUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jd_crearUsuarioLayout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+
+        jd_ingreso.setTitle("Ingreso");
+
+        jPanel2.setBackground(new java.awt.Color(0, 153, 255));
+
+        jLabel10.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel10.setText("Inicio de Sesión");
+
+        jLabel12.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel12.setText("Usuario:");
+
+        jLabel13.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel13.setText("Contraseña:");
+
+        bt_iniciarSesion.setBackground(new java.awt.Color(0, 0, 0));
+        bt_iniciarSesion.setForeground(new java.awt.Color(255, 255, 255));
+        bt_iniciarSesion.setText("Iniciar Sesión");
+        bt_iniciarSesion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bt_iniciarSesionActionPerformed(evt);
+            }
+        });
+
+        bt_cancelarIngreso.setBackground(new java.awt.Color(255, 0, 0));
+        bt_cancelarIngreso.setForeground(new java.awt.Color(255, 255, 255));
+        bt_cancelarIngreso.setText("Cancelar");
+        bt_cancelarIngreso.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bt_cancelarIngresoActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel10)
+                .addGap(128, 128, 128))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(56, 56, 56)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(bt_cancelarIngreso)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(bt_iniciarSesion))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel13)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(pf_contra_Ingresar, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel12)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(tf_usuario_Ingresar, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(74, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel10)
+                .addGap(31, 31, 31)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tf_usuario_Ingresar, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel12))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel13)
+                    .addComponent(pf_contra_Ingresar, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(bt_iniciarSesion)
+                    .addComponent(bt_cancelarIngreso))
+                .addContainerGap(26, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout jd_ingresoLayout = new javax.swing.GroupLayout(jd_ingreso.getContentPane());
+        jd_ingreso.getContentPane().setLayout(jd_ingresoLayout);
+        jd_ingresoLayout.setHorizontalGroup(
+            jd_ingresoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jd_ingresoLayout.setVerticalGroup(
+            jd_ingresoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("LEOGRAM");
+
+        panel_fondo.setBackground(new java.awt.Color(255, 255, 255));
+
+        jLabel1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(51, 0, 255));
+        jLabel1.setText("Sistema de Mensajería");
+
+        jLabel2.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(51, 0, 255));
+        jLabel2.setText("LEOGRAM");
+
+        javax.swing.GroupLayout panel_fondoLayout = new javax.swing.GroupLayout(panel_fondo);
+        panel_fondo.setLayout(panel_fondoLayout);
+        panel_fondoLayout.setHorizontalGroup(
+            panel_fondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panel_fondoLayout.createSequentialGroup()
+                .addGap(305, 305, 305)
+                .addGroup(panel_fondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel1))
+                .addContainerGap(305, Short.MAX_VALUE))
+        );
+        panel_fondoLayout.setVerticalGroup(
+            panel_fondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panel_fondoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel2)
+                .addGap(496, 496, 496))
+        );
+
+        jm_opciones.setText("Opciones");
+
+        jmi_iniciarSesion.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_I, java.awt.event.InputEvent.CTRL_MASK));
+        jmi_iniciarSesion.setText("Iniciar Sesión");
+        jmi_iniciarSesion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmi_iniciarSesionActionPerformed(evt);
+            }
+        });
+        jm_opciones.add(jmi_iniciarSesion);
+
+        jmi_cerrarSesion.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_MASK));
+        jmi_cerrarSesion.setText("Cerrar Sesión");
+        jmi_cerrarSesion.setEnabled(false);
+        jm_opciones.add(jmi_cerrarSesion);
+
+        jmi_crearUsuario.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_MASK));
+        jmi_crearUsuario.setText("Crear nuevo Usuario");
+        jmi_crearUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmi_crearUsuarioActionPerformed(evt);
+            }
+        });
+        jm_opciones.add(jmi_crearUsuario);
+
+        menuBar.add(jm_opciones);
+
+        setJMenuBar(menuBar);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 740, Short.MAX_VALUE)
+            .addComponent(panel_fondo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 540, Short.MAX_VALUE)
+            .addComponent(panel_fondo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void bt_crearUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_crearUsuarioActionPerformed
+        try {
+            String nombre = tf_nombre_Crear.getText().trim();
+            String apellido = tf_apellido_Crear.getText().trim();
+            int numeroTelefonico = Integer.parseInt(ff_telefono_Crear.getValue().toString());
+            String usuario = tf_usuario_Crear.getText().trim();
+            String contraseña = pf_contra_Crear.getText().trim();
+            String confirmacion = pf_confirmacion_Crear.getText().trim();
+            int calidad = Integer.parseInt(sp_conexion_Crear.getValue().toString());
+
+            if (!nombre.equals("") && !apellido.equals("") && !usuario.equals("") && !contraseña.equals("")) { //Confirmamos que no haya campos vacíos
+                if (usuarioValido(usuario)) { //Confirmamos que el usuario sea único
+                    if (contraseña.equals(confirmacion)) { //Verificamos la confirmación de la contraseña
+                        Usuario user = new Usuario(usuario, contraseña, calidad, nombre, apellido, numeroTelefonico);
+                        usuarios.add(user);
+                        usuarioActual = user;
+                        jd_crearUsuario.setVisible(false);
+                        limpiarCreacion();
+                        ingresar();
+                        escribirUsuarios();
+                    } else {
+                        JOptionPane.showMessageDialog(jd_crearUsuario, "Error al confirmar la contraseña.", "Confirmación fallida", 0);
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(jd_crearUsuario, "El usuario ingresado ya existe.", "Usuario inválido", 0);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_bt_crearUsuarioActionPerformed
+
+    private void bt_cancelarCreacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_cancelarCreacionActionPerformed
+        jd_crearUsuario.setVisible(false);
+        limpiarCreacion();
+    }//GEN-LAST:event_bt_cancelarCreacionActionPerformed
+
+    private void bt_cancelarIngresoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_cancelarIngresoActionPerformed
+        jd_ingreso.setVisible(false);
+        limpiarIngreso();
+    }//GEN-LAST:event_bt_cancelarIngresoActionPerformed
+
+    private void bt_iniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_iniciarSesionActionPerformed
+        try {
+            String usuario = tf_usuario_Ingresar.getText().trim();
+            String contraseña = pf_contra_Ingresar.getText().trim();
+            boolean flag = false;
+            for (Usuario u : usuarios) {
+                if (u.getUsuario().equals(usuario)) {
+                    if (u.getContraseña().equals(contraseña)) {
+                        usuarioActual = u;
+                        jd_ingreso.setVisible(false);//Ocultamos la subventana
+                        limpiarIngreso();
+                        ingresar(); //Ingresamos al sistema
+                        flag = true;
+                        break;
+                    }
+                }
+            }
+            if (!flag) {
+                JOptionPane.showMessageDialog(jd_ingreso, "El usuario y/o contraseña son incorrectos.", "Ingreso fallido", 0);
+            }
+        } catch (Exception e) {
+        }
+    }//GEN-LAST:event_bt_iniciarSesionActionPerformed
+
+    private void jmi_iniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmi_iniciarSesionActionPerformed
+        jd_ingreso.pack();
+        jd_ingreso.setLocationRelativeTo(this);
+        jd_ingreso.setModal(true);
+        jd_ingreso.setVisible(true);
+    }//GEN-LAST:event_jmi_iniciarSesionActionPerformed
+
+    private void jmi_crearUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmi_crearUsuarioActionPerformed
+        jd_crearUsuario.pack();
+        jd_crearUsuario.setLocationRelativeTo(this);
+        jd_crearUsuario.setModal(true);
+        jd_crearUsuario.setVisible(true);
+    }//GEN-LAST:event_jmi_crearUsuarioActionPerformed
 
     /**
      * @param args the command line arguments
@@ -79,5 +518,130 @@ public class Leogram extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton bt_cancelarCreacion;
+    private javax.swing.JButton bt_cancelarIngreso;
+    private javax.swing.JButton bt_crearUsuario;
+    private javax.swing.JButton bt_iniciarSesion;
+    private javax.swing.JFormattedTextField ff_telefono_Crear;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JDialog jd_crearUsuario;
+    private javax.swing.JDialog jd_ingreso;
+    private javax.swing.JMenu jm_opciones;
+    private javax.swing.JMenuItem jmi_cerrarSesion;
+    private javax.swing.JMenuItem jmi_crearUsuario;
+    private javax.swing.JMenuItem jmi_iniciarSesion;
+    private javax.swing.JMenuBar menuBar;
+    private javax.swing.JPanel panel_fondo;
+    private javax.swing.JPasswordField pf_confirmacion_Crear;
+    private javax.swing.JPasswordField pf_contra_Crear;
+    private javax.swing.JPasswordField pf_contra_Ingresar;
+    private javax.swing.JSpinner sp_conexion_Crear;
+    private javax.swing.JTextField tf_apellido_Crear;
+    private javax.swing.JTextField tf_nombre_Crear;
+    private javax.swing.JTextField tf_usuario_Crear;
+    private javax.swing.JTextField tf_usuario_Ingresar;
     // End of variables declaration//GEN-END:variables
+
+    private void limpiarCreacion() {
+        tf_nombre_Crear.setText("");
+        tf_apellido_Crear.setText("");
+        tf_usuario_Crear.setText("");
+        ff_telefono_Crear.setText("");
+        pf_contra_Crear.setText("");
+        pf_confirmacion_Crear.setText("");
+        sp_conexion_Crear.setValue(5);
+    }
+
+    private void cargarUsuarios() {
+        try {
+            FileInputStream fis = null;
+            ObjectInputStream ois = null;
+            File file = new File("./Usuarios.leo");
+            if (file.exists()) {
+                try {
+                    fis = new FileInputStream(file);
+                    ois = new ObjectInputStream(fis);
+                    Usuario usuario;
+                    usuarios = new ArrayList<>();
+
+                    while ((usuario = (Usuario) ois.readObject()) != null) {
+                        usuarios.add(usuario);
+                    }
+
+                } catch (EOFException | ClassNotFoundException ex) {
+                } catch (IOException ex) {
+                    javax.swing.JOptionPane.showMessageDialog(null, "Error con archivo de Usuarios.leo al cargar");
+                } finally {
+                    try {
+                        ois.close();
+                        fis.close();
+                    } catch (IOException ex) {
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void escribirUsuarios() {
+        FileOutputStream fos = null;
+        ObjectOutputStream oos = null;
+        try {
+            File file = new File("./Usuarios.leo");
+            fos = new FileOutputStream(file, false);
+            oos = new ObjectOutputStream(fos);
+
+            for (Usuario usuario : usuarios) {
+                oos.writeObject(usuario);
+            }
+
+        } catch (FileNotFoundException ex) {
+        } catch (IOException ex) {
+            javax.swing.JOptionPane.showMessageDialog(null, "Error con archivo de Usuarios.leo al escribir");
+        } finally {
+            try {
+                oos.close();
+                fos.close();
+            } catch (IOException ex) {
+            }
+        }
+    }
+
+    private void ingresar() {
+        jmi_crearUsuario.setEnabled(false);
+        jmi_iniciarSesion.setEnabled(false);
+        jmi_cerrarSesion.setEnabled(true);
+    }
+
+    private void limpiarIngreso() {
+        tf_usuario_Ingresar.setText("");
+        pf_contra_Ingresar.setText("");
+    }
+
+    private boolean usuarioValido(String usuario) {
+        boolean valido = true;
+        for (Usuario u : usuarios) {
+            if (u.getUsuario().equals(usuario)) {
+                valido = false;
+                break;
+            }
+        }
+        return valido;
+    }
+
 }
