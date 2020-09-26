@@ -3,23 +3,33 @@ package examen2;
 import java.io.Serializable;
 
 public class ChatPrivado extends Chat implements Serializable {
-    private Usuario receptor;
+    private Usuario primero;
+    private Usuario segundo;
 
-    public ChatPrivado(Usuario receptor) {
-        this.receptor = receptor;
+    public ChatPrivado(Usuario primero, Usuario segundo) {
+        this.primero = primero;
+        this.segundo = segundo;
     }
 
-    public Usuario getReceptor() {
-        return receptor;
+    public Usuario getPrimero() {
+        return primero;
     }
 
-    public void setReceptor(Usuario receptor) {
-        this.receptor = receptor;
+    public void setPrimero(Usuario primero) {
+        this.primero = primero;
+    }
+
+    public Usuario getSegundo() {
+        return segundo;
+    }
+
+    public void setSegundo(Usuario segundo) {
+        this.segundo = segundo;
     }
 
     @Override
     public String toString() {
-        return "ChatPrivado con " + receptor.getUsuario();
+        return "Chat " + primero.getUsuario() + " - " + segundo.getUsuario();
     }
     
 }

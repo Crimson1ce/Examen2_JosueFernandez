@@ -14,7 +14,12 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.Date;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
 
 /**
  *
@@ -24,14 +29,17 @@ public class Leogram extends javax.swing.JFrame {
 
     ArrayList<Usuario> usuarios = new ArrayList<>();
     Usuario usuarioActual;
+    Usuario destinatario;
+    ChatGrupal grupo;
+    ChatPrivado privado;
 
     /**
      * Creates new form Leogram
      */
     public Leogram() {
+        cargarUsuarios();
         initComponents();
         this.setLocationRelativeTo(null);
-        cargarUsuarios();
     }
 
     /**
@@ -71,9 +79,35 @@ public class Leogram extends javax.swing.JFrame {
         bt_iniciarSesion = new javax.swing.JButton();
         bt_cancelarIngreso = new javax.swing.JButton();
         pf_contra_Ingresar = new javax.swing.JPasswordField();
+        jd_solicitud = new javax.swing.JDialog();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        list_personas = new javax.swing.JList<>();
+        jLabel15 = new javax.swing.JLabel();
+        bt_enviarSolicitud = new javax.swing.JButton();
+        pm_amigos = new javax.swing.JPopupMenu();
+        pmi_enviarMensaje = new javax.swing.JMenuItem();
+        pmi_eliminarAmigo = new javax.swing.JMenuItem();
+        pm_chats = new javax.swing.JPopupMenu();
+        pmi_leerChat = new javax.swing.JMenuItem();
+        jd_mensaje = new javax.swing.JDialog();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        ta_mensaje = new javax.swing.JTextArea();
+        bt_enviarMensaje = new javax.swing.JButton();
+        jProgressBar1 = new javax.swing.JProgressBar();
+        pm_grupos = new javax.swing.JPopupMenu();
+        jd_leerMensajes = new javax.swing.JDialog();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        ta_historial = new javax.swing.JTextArea();
+        label_chat = new javax.swing.JLabel();
         panel_fondo = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        list_amigos = new javax.swing.JList<>();
+        jLabel14 = new javax.swing.JLabel();
+        bt_solicitud = new javax.swing.JButton();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tree_chats = new javax.swing.JTree();
         menuBar = new javax.swing.JMenuBar();
         jm_opciones = new javax.swing.JMenu();
         jmi_iniciarSesion = new javax.swing.JMenuItem();
@@ -325,10 +359,145 @@ public class Leogram extends javax.swing.JFrame {
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
+        jd_solicitud.setTitle("Envío de solicitud de amistad");
+
+        list_personas.setModel(new DefaultListModel());
+        jScrollPane2.setViewportView(list_personas);
+
+        jLabel15.setText("Personas:");
+
+        bt_enviarSolicitud.setText("Enviar solicitud");
+        bt_enviarSolicitud.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bt_enviarSolicitudActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jd_solicitudLayout = new javax.swing.GroupLayout(jd_solicitud.getContentPane());
+        jd_solicitud.getContentPane().setLayout(jd_solicitudLayout);
+        jd_solicitudLayout.setHorizontalGroup(
+            jd_solicitudLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jd_solicitudLayout.createSequentialGroup()
+                .addGap(53, 53, 53)
+                .addGroup(jd_solicitudLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(bt_enviarSolicitud)
+                    .addGroup(jd_solicitudLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel15)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(46, Short.MAX_VALUE))
+        );
+        jd_solicitudLayout.setVerticalGroup(
+            jd_solicitudLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jd_solicitudLayout.createSequentialGroup()
+                .addGap(35, 35, 35)
+                .addComponent(jLabel15)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(bt_enviarSolicitud)
+                .addContainerGap(17, Short.MAX_VALUE))
+        );
+
+        pmi_enviarMensaje.setText("Enviar mensaje");
+        pmi_enviarMensaje.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pmi_enviarMensajeActionPerformed(evt);
+            }
+        });
+        pm_amigos.add(pmi_enviarMensaje);
+
+        pmi_eliminarAmigo.setText("Eliminar amigo");
+        pmi_eliminarAmigo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pmi_eliminarAmigoActionPerformed(evt);
+            }
+        });
+        pm_amigos.add(pmi_eliminarAmigo);
+
+        pmi_leerChat.setText("Leer todo el chat");
+        pmi_leerChat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pmi_leerChatActionPerformed(evt);
+            }
+        });
+        pm_chats.add(pmi_leerChat);
+
+        jd_mensaje.setTitle("Enviar Mensaje");
+
+        ta_mensaje.setColumns(20);
+        ta_mensaje.setRows(5);
+        jScrollPane4.setViewportView(ta_mensaje);
+
+        bt_enviarMensaje.setText("Enviar Mensaje");
+        bt_enviarMensaje.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bt_enviarMensajeActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jd_mensajeLayout = new javax.swing.GroupLayout(jd_mensaje.getContentPane());
+        jd_mensaje.getContentPane().setLayout(jd_mensajeLayout);
+        jd_mensajeLayout.setHorizontalGroup(
+            jd_mensajeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jd_mensajeLayout.createSequentialGroup()
+                .addGroup(jd_mensajeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jd_mensajeLayout.createSequentialGroup()
+                        .addGap(40, 40, 40)
+                        .addGroup(jd_mensajeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 318, Short.MAX_VALUE)
+                            .addComponent(jProgressBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(jd_mensajeLayout.createSequentialGroup()
+                        .addGap(117, 117, 117)
+                        .addComponent(bt_enviarMensaje)))
+                .addContainerGap(34, Short.MAX_VALUE))
+        );
+        jd_mensajeLayout.setVerticalGroup(
+            jd_mensajeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jd_mensajeLayout.createSequentialGroup()
+                .addGap(29, 29, 29)
+                .addComponent(jProgressBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(bt_enviarMensaje)
+                .addGap(34, 34, 34))
+        );
+
+        jd_leerMensajes.setTitle("Historial de chat");
+
+        ta_historial.setEditable(false);
+        ta_historial.setColumns(20);
+        ta_historial.setRows(5);
+        jScrollPane5.setViewportView(ta_historial);
+
+        label_chat.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        label_chat.setText("jLabel16");
+
+        javax.swing.GroupLayout jd_leerMensajesLayout = new javax.swing.GroupLayout(jd_leerMensajes.getContentPane());
+        jd_leerMensajes.getContentPane().setLayout(jd_leerMensajesLayout);
+        jd_leerMensajesLayout.setHorizontalGroup(
+            jd_leerMensajesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jd_leerMensajesLayout.createSequentialGroup()
+                .addContainerGap(24, Short.MAX_VALUE)
+                .addGroup(jd_leerMensajesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(label_chat)
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 357, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(19, 19, 19))
+        );
+        jd_leerMensajesLayout.setVerticalGroup(
+            jd_leerMensajesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jd_leerMensajesLayout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addComponent(label_chat)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(40, Short.MAX_VALUE))
+        );
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("LEOGRAM");
 
-        panel_fondo.setBackground(new java.awt.Color(255, 255, 255));
+        panel_fondo.setBackground(new java.awt.Color(204, 255, 204));
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(51, 0, 255));
@@ -337,6 +506,40 @@ public class Leogram extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(51, 0, 255));
         jLabel2.setText("LEOGRAM");
+
+        list_amigos.setModel(new DefaultListModel());
+        list_amigos.setEnabled(false);
+        list_amigos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                list_amigosMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(list_amigos);
+
+        jLabel14.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel14.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel14.setText("Amigos:");
+
+        bt_solicitud.setBackground(new java.awt.Color(0, 0, 255));
+        bt_solicitud.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        bt_solicitud.setForeground(new java.awt.Color(255, 255, 255));
+        bt_solicitud.setText("Enviar solicitud de amistad");
+        bt_solicitud.setEnabled(false);
+        bt_solicitud.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bt_solicitudActionPerformed(evt);
+            }
+        });
+
+        javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("Chats");
+        tree_chats.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
+        tree_chats.setEnabled(false);
+        tree_chats.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tree_chatsMouseClicked(evt);
+            }
+        });
+        jScrollPane3.setViewportView(tree_chats);
 
         javax.swing.GroupLayout panel_fondoLayout = new javax.swing.GroupLayout(panel_fondo);
         panel_fondo.setLayout(panel_fondoLayout);
@@ -347,7 +550,16 @@ public class Leogram extends javax.swing.JFrame {
                 .addGroup(panel_fondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel2)
                     .addComponent(jLabel1))
-                .addContainerGap(305, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(panel_fondoLayout.createSequentialGroup()
+                .addGap(53, 53, 53)
+                .addGroup(panel_fondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel14)
+                    .addComponent(bt_solicitud, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 117, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(81, 81, 81))
         );
         panel_fondoLayout.setVerticalGroup(
             panel_fondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -356,7 +568,15 @@ public class Leogram extends javax.swing.JFrame {
                 .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2)
-                .addGap(496, 496, 496))
+                .addGap(7, 7, 7)
+                .addComponent(bt_solicitud)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel14)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panel_fondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 344, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1))
+                .addGap(18, 18, 18))
         );
 
         jm_opciones.setText("Opciones");
@@ -373,6 +593,11 @@ public class Leogram extends javax.swing.JFrame {
         jmi_cerrarSesion.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_MASK));
         jmi_cerrarSesion.setText("Cerrar Sesión");
         jmi_cerrarSesion.setEnabled(false);
+        jmi_cerrarSesion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmi_cerrarSesionActionPerformed(evt);
+            }
+        });
         jm_opciones.add(jmi_cerrarSesion);
 
         jmi_crearUsuario.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_MASK));
@@ -396,7 +621,7 @@ public class Leogram extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panel_fondo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(panel_fondo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -482,6 +707,147 @@ public class Leogram extends javax.swing.JFrame {
         jd_crearUsuario.setVisible(true);
     }//GEN-LAST:event_jmi_crearUsuarioActionPerformed
 
+    private void bt_solicitudActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_solicitudActionPerformed
+
+        DefaultListModel lmodel = (DefaultListModel) list_personas.getModel();
+        lmodel.removeAllElements();
+        for (Usuario usuario : usuarios) {
+            if (!usuario.equals(usuarioActual) && !usuarioActual.getAmigos().contains(usuario) && !usuario.getSolicitudes().contains(usuarioActual)) {
+                lmodel.addElement(usuario);
+            }
+        }
+        list_personas.setModel(lmodel);
+
+        jd_solicitud.pack();
+        jd_solicitud.setLocationRelativeTo(this);
+        jd_solicitud.setModal(true);
+        jd_solicitud.setVisible(true);
+    }//GEN-LAST:event_bt_solicitudActionPerformed
+
+    private void jmi_cerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmi_cerrarSesionActionPerformed
+        list_personas.setModel(new DefaultListModel());
+        tree_chats.setModel(new DefaultTreeModel(new DefaultMutableTreeNode("Chats")));
+        cambiarEstado(true);
+        usuarioActual = null;
+        escribirUsuarios();
+    }//GEN-LAST:event_jmi_cerrarSesionActionPerformed
+
+    private void bt_enviarSolicitudActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_enviarSolicitudActionPerformed
+        if (list_personas.getSelectedIndex() >= 0) {
+            DefaultListModel lmodel = (DefaultListModel) list_personas.getModel();
+            Usuario u = (Usuario) lmodel.getElementAt(list_personas.getSelectedIndex());
+            u.getSolicitudes().add(usuarioActual);
+            JOptionPane.showMessageDialog(jd_solicitud, "Solicitud enviada.", "Operación exitosa", JOptionPane.INFORMATION_MESSAGE);
+            jd_solicitud.setVisible(false);
+        }
+    }//GEN-LAST:event_bt_enviarSolicitudActionPerformed
+
+    private void list_amigosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_list_amigosMouseClicked
+        if (evt.isMetaDown()) {
+            if (list_amigos.getSelectedIndex() >= 0) {
+                pm_amigos.show(evt.getComponent(), evt.getX(), evt.getY());
+                DefaultListModel lmodel = (DefaultListModel) list_amigos.getModel();
+                destinatario = (Usuario) lmodel.getElementAt(list_amigos.getSelectedIndex());
+            }
+        }
+    }//GEN-LAST:event_list_amigosMouseClicked
+
+    private void pmi_eliminarAmigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pmi_eliminarAmigoActionPerformed
+        DefaultListModel lmodel = (DefaultListModel) list_amigos.getModel();
+        Usuario amigo = (Usuario) lmodel.getElementAt(list_amigos.getSelectedIndex());
+        destinatario.getAmigos().remove(usuarioActual);
+        usuarioActual.getAmigos().remove(amigo);
+        lmodel.removeElement(destinatario);
+        list_amigos.setModel(lmodel);
+        escribirUsuarios();
+    }//GEN-LAST:event_pmi_eliminarAmigoActionPerformed
+
+    private void bt_enviarMensajeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_enviarMensajeActionPerformed
+        if (destinatario != null) {
+            boolean flag = false;
+            ChatPrivado c = null;
+
+            for (Chat chat : usuarioActual.getChats()) {
+                if (chat instanceof ChatPrivado) {
+                    c = (ChatPrivado) chat;
+                    if (c.getPrimero().equals(destinatario) || c.getSegundo().equals(destinatario)) {
+                        flag = true;
+                        break;
+                    }
+                }
+            }
+            if (!flag) {
+                c = new ChatPrivado(usuarioActual, destinatario);
+                usuarioActual.getChats().add(c);
+                destinatario.getChats().add(c);
+            }
+            try {
+                double d =usuarioActual.ENVIAR(destinatario);
+                HiloMensaje hm = new HiloMensaje(
+                        d,
+                        jProgressBar1
+                );
+                System.out.println(d);
+                hm.start();
+                Thread.sleep((long)d*1000);
+                
+                c.getMensajes().add(
+                        new Mensaje(usuarioActual.getUsuario() + ": " + ta_mensaje.getText(), new Date())
+                );
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            escribirUsuarios();
+            jd_mensaje.setVisible(false);
+            ta_mensaje.setText("");
+            cargarArbolChats();
+        }
+    }//GEN-LAST:event_bt_enviarMensajeActionPerformed
+
+    private void pmi_enviarMensajeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pmi_enviarMensajeActionPerformed
+        ta_mensaje.setText("");
+        jd_mensaje.pack();
+        jd_mensaje.setModal(true);
+        jd_mensaje.setLocationRelativeTo(this);
+        jd_mensaje.setVisible(true);
+    }//GEN-LAST:event_pmi_enviarMensajeActionPerformed
+
+    private void tree_chatsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tree_chatsMouseClicked
+        if(evt.isMetaDown()){
+            
+            int row = tree_chats.getClosestRowForLocation(evt.getX(), evt.getY());
+            tree_chats.setSelectionRow(row);
+            
+            Object node = tree_chats.getSelectionPath().getLastPathComponent();
+            DefaultMutableTreeNode nodo = (DefaultMutableTreeNode) node;
+            
+            if(nodo.getUserObject() instanceof ChatPrivado){
+                privado = (ChatPrivado) nodo.getUserObject();
+                
+                pm_chats.show(evt.getComponent(), evt.getX(), evt.getY());
+            } else if(nodo.getUserObject() instanceof ChatGrupal){
+                grupo = (ChatGrupal) nodo.getUserObject();
+                
+                pm_grupos.show(evt.getComponent(), evt.getX(), evt.getY());
+            }
+        }
+    }//GEN-LAST:event_tree_chatsMouseClicked
+
+    private void pmi_leerChatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pmi_leerChatActionPerformed
+        label_chat.setText(privado.toString());
+        ta_historial.setText("");
+        
+        for (Mensaje mensaje : privado.getMensajes()) {
+            ta_historial.append(mensaje.toString());
+        }
+        
+        jd_leerMensajes.pack();
+        jd_leerMensajes.setModal(true);
+        jd_leerMensajes.setLocationRelativeTo(this);
+        jd_leerMensajes.setVisible(true);
+        
+    }//GEN-LAST:event_pmi_leerChatActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -521,13 +887,18 @@ public class Leogram extends javax.swing.JFrame {
     private javax.swing.JButton bt_cancelarCreacion;
     private javax.swing.JButton bt_cancelarIngreso;
     private javax.swing.JButton bt_crearUsuario;
+    private javax.swing.JButton bt_enviarMensaje;
+    private javax.swing.JButton bt_enviarSolicitud;
     private javax.swing.JButton bt_iniciarSesion;
+    private javax.swing.JButton bt_solicitud;
     private javax.swing.JFormattedTextField ff_telefono_Crear;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -538,22 +909,43 @@ public class Leogram extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JProgressBar jProgressBar1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JDialog jd_crearUsuario;
     private javax.swing.JDialog jd_ingreso;
+    private javax.swing.JDialog jd_leerMensajes;
+    private javax.swing.JDialog jd_mensaje;
+    private javax.swing.JDialog jd_solicitud;
     private javax.swing.JMenu jm_opciones;
     private javax.swing.JMenuItem jmi_cerrarSesion;
     private javax.swing.JMenuItem jmi_crearUsuario;
     private javax.swing.JMenuItem jmi_iniciarSesion;
+    private javax.swing.JLabel label_chat;
+    private javax.swing.JList<String> list_amigos;
+    private javax.swing.JList<String> list_personas;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JPanel panel_fondo;
     private javax.swing.JPasswordField pf_confirmacion_Crear;
     private javax.swing.JPasswordField pf_contra_Crear;
     private javax.swing.JPasswordField pf_contra_Ingresar;
+    private javax.swing.JPopupMenu pm_amigos;
+    private javax.swing.JPopupMenu pm_chats;
+    private javax.swing.JPopupMenu pm_grupos;
+    private javax.swing.JMenuItem pmi_eliminarAmigo;
+    private javax.swing.JMenuItem pmi_enviarMensaje;
+    private javax.swing.JMenuItem pmi_leerChat;
     private javax.swing.JSpinner sp_conexion_Crear;
+    private javax.swing.JTextArea ta_historial;
+    private javax.swing.JTextArea ta_mensaje;
     private javax.swing.JTextField tf_apellido_Crear;
     private javax.swing.JTextField tf_nombre_Crear;
     private javax.swing.JTextField tf_usuario_Crear;
     private javax.swing.JTextField tf_usuario_Ingresar;
+    private javax.swing.JTree tree_chats;
     // End of variables declaration//GEN-END:variables
 
     private void limpiarCreacion() {
@@ -577,7 +969,6 @@ public class Leogram extends javax.swing.JFrame {
                     ois = new ObjectInputStream(fis);
                     Usuario usuario;
                     usuarios = new ArrayList<>();
-
                     while ((usuario = (Usuario) ois.readObject()) != null) {
                         usuarios.add(usuario);
                     }
@@ -623,9 +1014,10 @@ public class Leogram extends javax.swing.JFrame {
     }
 
     private void ingresar() {
-        jmi_crearUsuario.setEnabled(false);
-        jmi_iniciarSesion.setEnabled(false);
-        jmi_cerrarSesion.setEnabled(true);
+        cambiarEstado(false);
+        usuarioActual.mostrarSolicitudes(this);
+        cargarArbolChats();
+        cargarListaAmigos();
     }
 
     private void limpiarIngreso() {
@@ -642,6 +1034,43 @@ public class Leogram extends javax.swing.JFrame {
             }
         }
         return valido;
+    }
+
+    private void cargarListaAmigos() {
+        if (usuarioActual != null) {
+            DefaultListModel lmodel = new DefaultListModel();//(DefaultListModel) list_amigos.getModel();
+            //lmodel.removeAllElements();
+            for (Usuario amigo : usuarioActual.getAmigos()) {
+                System.out.println(amigo);
+                lmodel.addElement(amigo);
+            }
+            list_amigos.setModel(lmodel);
+            list_amigos.setModel(lmodel);
+        }
+    }
+
+    private void cambiarEstado(boolean b) {
+        jmi_crearUsuario.setEnabled(b);
+        jmi_iniciarSesion.setEnabled(b);
+        jmi_cerrarSesion.setEnabled(!b);
+        list_amigos.setEnabled(!b);
+        bt_solicitud.setEnabled(!b);
+        tree_chats.setEnabled(!b);
+    }
+
+    private void cargarArbolChats() {
+        if (usuarioActual != null) {
+            DefaultTreeModel tmodel = new DefaultTreeModel(
+                    new DefaultMutableTreeNode("Chats " + usuarioActual.getUsuario())
+            );
+            DefaultMutableTreeNode root = (DefaultMutableTreeNode) tmodel.getRoot();
+            for (Chat chat : usuarioActual.getChats()) {
+                root.add(
+                        new DefaultMutableTreeNode(chat)
+                );
+            }
+            tree_chats.setModel(tmodel);
+        }
     }
 
 }

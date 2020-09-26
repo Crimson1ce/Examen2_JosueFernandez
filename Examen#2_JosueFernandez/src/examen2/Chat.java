@@ -3,7 +3,7 @@ package examen2;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Chat implements Serializable {
+public abstract class Chat implements Serializable {
     private ArrayList<Mensaje> mensajes;
 
     public Chat() {

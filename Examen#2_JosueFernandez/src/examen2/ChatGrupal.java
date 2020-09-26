@@ -40,7 +40,7 @@ public class ChatGrupal extends Chat implements Serializable {
 
     @Override
     public String toString() {
-        return nombreGrupo;
+        return "Grupo - " + nombreGrupo;
     }
     
 }
