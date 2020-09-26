@@ -15,7 +15,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Date;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -32,6 +31,7 @@ public class Leogram extends javax.swing.JFrame {
     Usuario destinatario;
     ChatGrupal grupo;
     ChatPrivado privado;
+    HiloMensaje hm;
 
     /**
      * Creates new form Leogram
@@ -93,7 +93,7 @@ public class Leogram extends javax.swing.JFrame {
         jScrollPane4 = new javax.swing.JScrollPane();
         ta_mensaje = new javax.swing.JTextArea();
         bt_enviarMensaje = new javax.swing.JButton();
-        jProgressBar1 = new javax.swing.JProgressBar();
+        pb1 = new javax.swing.JProgressBar();
         pm_grupos = new javax.swing.JPopupMenu();
         jd_leerMensajes = new javax.swing.JDialog();
         jScrollPane5 = new javax.swing.JScrollPane();
@@ -435,6 +435,10 @@ public class Leogram extends javax.swing.JFrame {
             }
         });
 
+        pb1.setBackground(new java.awt.Color(255, 153, 0));
+        pb1.setForeground(new java.awt.Color(255, 0, 0));
+        pb1.setBorderPainted(false);
+
         javax.swing.GroupLayout jd_mensajeLayout = new javax.swing.GroupLayout(jd_mensaje.getContentPane());
         jd_mensaje.getContentPane().setLayout(jd_mensajeLayout);
         jd_mensajeLayout.setHorizontalGroup(
@@ -442,20 +446,20 @@ public class Leogram extends javax.swing.JFrame {
             .addGroup(jd_mensajeLayout.createSequentialGroup()
                 .addGroup(jd_mensajeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jd_mensajeLayout.createSequentialGroup()
+                        .addGap(117, 117, 117)
+                        .addComponent(bt_enviarMensaje))
+                    .addGroup(jd_mensajeLayout.createSequentialGroup()
                         .addGap(40, 40, 40)
                         .addGroup(jd_mensajeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 318, Short.MAX_VALUE)
-                            .addComponent(jProgressBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(jd_mensajeLayout.createSequentialGroup()
-                        .addGap(117, 117, 117)
-                        .addComponent(bt_enviarMensaje)))
+                            .addComponent(pb1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap(34, Short.MAX_VALUE))
         );
         jd_mensajeLayout.setVerticalGroup(
             jd_mensajeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jd_mensajeLayout.createSequentialGroup()
-                .addGap(29, 29, 29)
-                .addComponent(jProgressBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE)
+                .addContainerGap(40, Short.MAX_VALUE)
+                .addComponent(pb1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -783,13 +787,13 @@ public class Leogram extends javax.swing.JFrame {
             }
             try {
                 double d =usuarioActual.ENVIAR(destinatario);
-                HiloMensaje hm = new HiloMensaje(
+                hm = new HiloMensaje(
                         d,
-                        jProgressBar1
+                        pb1,
+                        jd_mensaje
                 );
-                System.out.println(d);
                 hm.start();
-                Thread.sleep((long)d*1000);
+                
                 
                 c.getMensajes().add(
                         new Mensaje(usuarioActual.getUsuario() + ": " + ta_mensaje.getText(), new Date())
@@ -798,7 +802,6 @@ public class Leogram extends javax.swing.JFrame {
                 e.printStackTrace();
             }
             escribirUsuarios();
-            jd_mensaje.setVisible(false);
             ta_mensaje.setText("");
             cargarArbolChats();
         }
@@ -909,7 +912,6 @@ public class Leogram extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
@@ -929,6 +931,7 @@ public class Leogram extends javax.swing.JFrame {
     private javax.swing.JList<String> list_personas;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JPanel panel_fondo;
+    private javax.swing.JProgressBar pb1;
     private javax.swing.JPasswordField pf_confirmacion_Crear;
     private javax.swing.JPasswordField pf_contra_Crear;
     private javax.swing.JPasswordField pf_contra_Ingresar;
