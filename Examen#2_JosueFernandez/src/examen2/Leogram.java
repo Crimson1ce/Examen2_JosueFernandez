@@ -1071,10 +1071,13 @@ public class Leogram extends javax.swing.JFrame {
             ChatGrupal cg = new ChatGrupal(nombre, usuarioActual);
             DefaultListModel m1 = (DefaultListModel) list_agregados.getModel();
             for (int i = 0; i < m1.getSize(); i++) {
-                cg.getMiembros().add((Usuario) m1.getElementAt(i));
+                Usuario p = (Usuario) m1.getElementAt(i);
+                cg.getMiembros().add(p);
+                p.getChats().add(cg);
             }
             jd_grupo.setVisible(false);
 
+            escribirUsuarios();
             cargarArbolChats();
 
         } catch (Exception e) {
