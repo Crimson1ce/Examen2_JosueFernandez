@@ -122,6 +122,8 @@ public class Leogram extends javax.swing.JFrame {
         jScrollPane3 = new javax.swing.JScrollPane();
         tree_chats = new javax.swing.JTree();
         jButton1 = new javax.swing.JButton();
+        jLabel17 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
         menuBar = new javax.swing.JMenuBar();
         jm_opciones = new javax.swing.JMenu();
         jmi_iniciarSesion = new javax.swing.JMenuItem();
@@ -680,12 +682,20 @@ public class Leogram extends javax.swing.JFrame {
             }
         });
 
+        jLabel17.setText("Cerrar sesión y volver a abrirla después de");
+
+        jLabel18.setText("aceptar una solicitud");
+
         javax.swing.GroupLayout panel_fondoLayout = new javax.swing.GroupLayout(panel_fondo);
         panel_fondo.setLayout(panel_fondoLayout);
         panel_fondoLayout.setHorizontalGroup(
             panel_fondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panel_fondoLayout.createSequentialGroup()
-                .addGap(305, 305, 305)
+                .addContainerGap()
+                .addGroup(panel_fondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel17)
+                    .addComponent(jLabel18))
+                .addGap(30, 30, 30)
                 .addGroup(panel_fondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel2)
                     .addComponent(jLabel1))
@@ -706,9 +716,13 @@ public class Leogram extends javax.swing.JFrame {
             panel_fondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panel_fondoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(panel_fondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel17))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel2)
+                .addGroup(panel_fondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel18))
                 .addGap(7, 7, 7)
                 .addGroup(panel_fondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(bt_solicitud)
@@ -1197,6 +1211,8 @@ public class Leogram extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
