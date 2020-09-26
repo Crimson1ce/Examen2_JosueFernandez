@@ -41,7 +41,7 @@ public class HiloMensaje extends Thread {
                 System.out.println(barra.getValue());
                 if (barra.getValue() == barra.getMaximum()) {
                     barra.setValue(0);
-                    component.setVisible(false);
+                    //component.setVisible(false);
                     break;
                 }
                 try {

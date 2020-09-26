@@ -19,8 +19,6 @@ public abstract class Chat implements Serializable {
     }
 
     @Override
-    public String toString() {
-        return mensajes.toString();
-    }
+    public abstract String toString();
     
 }

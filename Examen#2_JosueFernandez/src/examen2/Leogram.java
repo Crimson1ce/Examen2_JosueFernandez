@@ -94,11 +94,24 @@ public class Leogram extends javax.swing.JFrame {
         ta_mensaje = new javax.swing.JTextArea();
         bt_enviarMensaje = new javax.swing.JButton();
         pb1 = new javax.swing.JProgressBar();
+        bt_enviarMensajeGrupal = new javax.swing.JButton();
         pm_grupos = new javax.swing.JPopupMenu();
+        pmi_leerTodo = new javax.swing.JMenuItem();
+        pmi_enviarGrupo = new javax.swing.JMenuItem();
         jd_leerMensajes = new javax.swing.JDialog();
         jScrollPane5 = new javax.swing.JScrollPane();
         ta_historial = new javax.swing.JTextArea();
         label_chat = new javax.swing.JLabel();
+        jd_grupo = new javax.swing.JDialog();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        list_porAgregar = new javax.swing.JList<>();
+        jScrollPane7 = new javax.swing.JScrollPane();
+        list_agregados = new javax.swing.JList<>();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        tf_nombreGrupo = new javax.swing.JTextField();
+        jButton4 = new javax.swing.JButton();
+        jLabel16 = new javax.swing.JLabel();
         panel_fondo = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -108,11 +121,13 @@ public class Leogram extends javax.swing.JFrame {
         bt_solicitud = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         tree_chats = new javax.swing.JTree();
+        jButton1 = new javax.swing.JButton();
         menuBar = new javax.swing.JMenuBar();
         jm_opciones = new javax.swing.JMenu();
         jmi_iniciarSesion = new javax.swing.JMenuItem();
         jmi_cerrarSesion = new javax.swing.JMenuItem();
         jmi_crearUsuario = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
 
         jd_crearUsuario.setTitle("Nuevo Usuario");
 
@@ -439,6 +454,14 @@ public class Leogram extends javax.swing.JFrame {
         pb1.setForeground(new java.awt.Color(255, 0, 0));
         pb1.setBorderPainted(false);
 
+        bt_enviarMensajeGrupal.setText("Enviar Mensaje Grupal");
+        bt_enviarMensajeGrupal.setEnabled(false);
+        bt_enviarMensajeGrupal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bt_enviarMensajeGrupalActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jd_mensajeLayout = new javax.swing.GroupLayout(jd_mensaje.getContentPane());
         jd_mensaje.getContentPane().setLayout(jd_mensajeLayout);
         jd_mensajeLayout.setHorizontalGroup(
@@ -446,26 +469,47 @@ public class Leogram extends javax.swing.JFrame {
             .addGroup(jd_mensajeLayout.createSequentialGroup()
                 .addGroup(jd_mensajeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jd_mensajeLayout.createSequentialGroup()
-                        .addGap(117, 117, 117)
-                        .addComponent(bt_enviarMensaje))
-                    .addGroup(jd_mensajeLayout.createSequentialGroup()
                         .addGap(40, 40, 40)
                         .addGroup(jd_mensajeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 318, Short.MAX_VALUE)
-                            .addComponent(pb1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(pb1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(jd_mensajeLayout.createSequentialGroup()
+                        .addGap(117, 117, 117)
+                        .addComponent(bt_enviarMensaje))
+                    .addGroup(jd_mensajeLayout.createSequentialGroup()
+                        .addGap(102, 102, 102)
+                        .addComponent(bt_enviarMensajeGrupal)))
                 .addContainerGap(34, Short.MAX_VALUE))
         );
         jd_mensajeLayout.setVerticalGroup(
             jd_mensajeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jd_mensajeLayout.createSequentialGroup()
-                .addContainerGap(40, Short.MAX_VALUE)
+                .addContainerGap(30, Short.MAX_VALUE)
                 .addComponent(pb1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(bt_enviarMensaje)
-                .addGap(34, 34, 34))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(bt_enviarMensajeGrupal)
+                .addContainerGap())
         );
+
+        pmi_leerTodo.setText("Leer todo");
+        pmi_leerTodo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pmi_leerTodoActionPerformed(evt);
+            }
+        });
+        pm_grupos.add(pmi_leerTodo);
+
+        pmi_enviarGrupo.setText("Leer todo");
+        pmi_enviarGrupo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pmi_enviarGrupoActionPerformed(evt);
+            }
+        });
+        pm_grupos.add(pmi_enviarGrupo);
 
         jd_leerMensajes.setTitle("Historial de chat");
 
@@ -496,6 +540,89 @@ public class Leogram extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(40, Short.MAX_VALUE))
+        );
+
+        list_porAgregar.setModel(new DefaultListModel());
+        jScrollPane6.setViewportView(list_porAgregar);
+
+        list_agregados.setModel(new DefaultListModel());
+        jScrollPane7.setViewportView(list_agregados);
+
+        jButton2.setText("Agregar =>");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        jButton3.setText("Crear");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
+        jButton4.setText("<=Quitar");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
+        jLabel16.setText("Nombre grupo:");
+
+        javax.swing.GroupLayout jd_grupoLayout = new javax.swing.GroupLayout(jd_grupo.getContentPane());
+        jd_grupo.getContentPane().setLayout(jd_grupoLayout);
+        jd_grupoLayout.setHorizontalGroup(
+            jd_grupoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jd_grupoLayout.createSequentialGroup()
+                .addGap(32, 32, 32)
+                .addGroup(jd_grupoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jd_grupoLayout.createSequentialGroup()
+                        .addComponent(jLabel16)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jd_grupoLayout.createSequentialGroup()
+                        .addGroup(jd_grupoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jd_grupoLayout.createSequentialGroup()
+                                .addComponent(tf_nombreGrupo, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jd_grupoLayout.createSequentialGroup()
+                                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jd_grupoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jButton2)
+                                    .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(6, 6, 6)))
+                        .addGap(27, 27, 27))))
+        );
+        jd_grupoLayout.setVerticalGroup(
+            jd_grupoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jd_grupoLayout.createSequentialGroup()
+                .addGroup(jd_grupoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jd_grupoLayout.createSequentialGroup()
+                        .addGap(42, 42, 42)
+                        .addGroup(jd_grupoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jd_grupoLayout.createSequentialGroup()
+                        .addGap(65, 65, 65)
+                        .addComponent(jButton2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton4)))
+                .addGroup(jd_grupoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jd_grupoLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton3)
+                        .addGap(33, 33, 33))
+                    .addGroup(jd_grupoLayout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(jLabel16)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tf_nombreGrupo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(61, Short.MAX_VALUE))))
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -545,6 +672,14 @@ public class Leogram extends javax.swing.JFrame {
         });
         jScrollPane3.setViewportView(tree_chats);
 
+        jButton1.setText("Crear grupo");
+        jButton1.setEnabled(false);
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panel_fondoLayout = new javax.swing.GroupLayout(panel_fondo);
         panel_fondo.setLayout(panel_fondoLayout);
         panel_fondoLayout.setHorizontalGroup(
@@ -562,7 +697,9 @@ public class Leogram extends javax.swing.JFrame {
                     .addComponent(bt_solicitud, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 117, Short.MAX_VALUE)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(panel_fondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addGap(81, 81, 81))
         );
         panel_fondoLayout.setVerticalGroup(
@@ -573,7 +710,9 @@ public class Leogram extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2)
                 .addGap(7, 7, 7)
-                .addComponent(bt_solicitud)
+                .addGroup(panel_fondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(bt_solicitud)
+                    .addComponent(jButton1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel14)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -612,6 +751,15 @@ public class Leogram extends javax.swing.JFrame {
             }
         });
         jm_opciones.add(jmi_crearUsuario);
+
+        jMenuItem1.setText("Eliminar Cuenta");
+        jMenuItem1.setEnabled(false);
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jm_opciones.add(jMenuItem1);
 
         menuBar.add(jm_opciones);
 
@@ -786,15 +934,14 @@ public class Leogram extends javax.swing.JFrame {
                 destinatario.getChats().add(c);
             }
             try {
-                double d =usuarioActual.ENVIAR(destinatario);
+                double d = usuarioActual.ENVIAR(destinatario);
                 hm = new HiloMensaje(
                         d,
                         pb1,
                         jd_mensaje
                 );
                 hm.start();
-                
-                
+
                 c.getMensajes().add(
                         new Mensaje(usuarioActual.getUsuario() + ": " + ta_mensaje.getText(), new Date())
                 );
@@ -808,6 +955,10 @@ public class Leogram extends javax.swing.JFrame {
     }//GEN-LAST:event_bt_enviarMensajeActionPerformed
 
     private void pmi_enviarMensajeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pmi_enviarMensajeActionPerformed
+
+        bt_enviarMensaje.setEnabled(true);
+        bt_enviarMensajeGrupal.setEnabled(false);
+
         ta_mensaje.setText("");
         jd_mensaje.pack();
         jd_mensaje.setModal(true);
@@ -816,21 +967,21 @@ public class Leogram extends javax.swing.JFrame {
     }//GEN-LAST:event_pmi_enviarMensajeActionPerformed
 
     private void tree_chatsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tree_chatsMouseClicked
-        if(evt.isMetaDown()){
-            
+        if (evt.isMetaDown()) {
+
             int row = tree_chats.getClosestRowForLocation(evt.getX(), evt.getY());
             tree_chats.setSelectionRow(row);
-            
+
             Object node = tree_chats.getSelectionPath().getLastPathComponent();
             DefaultMutableTreeNode nodo = (DefaultMutableTreeNode) node;
-            
-            if(nodo.getUserObject() instanceof ChatPrivado){
+
+            if (nodo.getUserObject() instanceof ChatPrivado) {
                 privado = (ChatPrivado) nodo.getUserObject();
-                
+
                 pm_chats.show(evt.getComponent(), evt.getX(), evt.getY());
-            } else if(nodo.getUserObject() instanceof ChatGrupal){
+            } else if (nodo.getUserObject() instanceof ChatGrupal) {
                 grupo = (ChatGrupal) nodo.getUserObject();
-                
+
                 pm_grupos.show(evt.getComponent(), evt.getX(), evt.getY());
             }
         }
@@ -839,17 +990,155 @@ public class Leogram extends javax.swing.JFrame {
     private void pmi_leerChatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pmi_leerChatActionPerformed
         label_chat.setText(privado.toString());
         ta_historial.setText("");
-        
+
         for (Mensaje mensaje : privado.getMensajes()) {
+            if (mensaje.getContenido().contains(usuarioActual.getUsuario())) {
+                mensaje.setLeido(true);
+            }
             ta_historial.append(mensaje.toString());
         }
-        
+
         jd_leerMensajes.pack();
         jd_leerMensajes.setModal(true);
         jd_leerMensajes.setLocationRelativeTo(this);
         jd_leerMensajes.setVisible(true);
-        
+
     }//GEN-LAST:event_pmi_leerChatActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        DefaultListModel m1 = (DefaultListModel) list_porAgregar.getModel();
+        DefaultListModel m2 = (DefaultListModel) list_agregados.getModel();
+        m1.removeAllElements();
+        m2.removeAllElements();
+
+        for (Usuario amigo : usuarioActual.getAmigos()) {
+            m1.addElement(amigo);
+        }
+        list_porAgregar.setModel(m1);
+        list_agregados.setModel(m2);
+
+        tf_nombreGrupo.setText("");
+
+        jd_grupo.pack();
+        jd_grupo.setModal(true);
+        jd_grupo.setLocationRelativeTo(this);
+        jd_grupo.setVisible(true);
+
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        if (list_porAgregar.getSelectedIndex() >= 0) {
+            DefaultListModel m1 = (DefaultListModel) list_porAgregar.getModel();
+            DefaultListModel m2 = (DefaultListModel) list_agregados.getModel();
+            Usuario u = (Usuario) m1.getElementAt(list_porAgregar.getSelectedIndex());
+            m2.addElement(u);
+            m1.removeElement(u);
+            list_agregados.setModel(m2);
+            list_porAgregar.setModel(m1);
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        if (list_agregados.getSelectedIndex() >= 0) {
+            DefaultListModel m1 = (DefaultListModel) list_agregados.getModel();
+            DefaultListModel m2 = (DefaultListModel) list_porAgregar.getModel();
+            Usuario u = (Usuario) m1.getElementAt(list_agregados.getSelectedIndex());
+            m2.addElement(u);
+            m1.removeElement(u);
+            list_porAgregar.setModel(m2);
+            list_agregados.setModel(m1);
+        }
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        try {
+            String nombre = tf_nombreGrupo.getText();
+
+            ChatGrupal cg = new ChatGrupal(nombre, usuarioActual);
+            DefaultListModel m1 = (DefaultListModel) list_agregados.getModel();
+            for (int i = 0; i < m1.getSize(); i++) {
+                cg.getMiembros().add((Usuario) m1.getElementAt(i));
+            }
+            jd_grupo.setVisible(false);
+
+            cargarArbolChats();
+
+        } catch (Exception e) {
+        }
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void pmi_leerTodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pmi_leerTodoActionPerformed
+        label_chat.setText(grupo.toString());
+        ta_historial.setText("");
+
+        for (Mensaje mensaje : grupo.getMensajes()) {
+            if (mensaje.getContenido().contains(usuarioActual.getUsuario())) {
+                mensaje.setLeido(true);
+            }
+            ta_historial.append(mensaje.toString());
+        }
+
+        jd_leerMensajes.pack();
+        jd_leerMensajes.setModal(true);
+        jd_leerMensajes.setLocationRelativeTo(this);
+        jd_leerMensajes.setVisible(true);
+
+    }//GEN-LAST:event_pmi_leerTodoActionPerformed
+
+    private void pmi_enviarGrupoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pmi_enviarGrupoActionPerformed
+        bt_enviarMensaje.setEnabled(false);
+        bt_enviarMensajeGrupal.setEnabled(true);
+
+        ta_mensaje.setText("");
+        jd_mensaje.pack();
+        jd_mensaje.setModal(true);
+        jd_mensaje.setLocationRelativeTo(this);
+        jd_mensaje.setVisible(true);
+    }//GEN-LAST:event_pmi_enviarGrupoActionPerformed
+
+    private void bt_enviarMensajeGrupalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_enviarMensajeGrupalActionPerformed
+
+        try {
+            for (Usuario usuario : grupo.getMiembros()) {
+                if (!usuario.equals(usuarioActual)) {
+
+                    double d = usuarioActual.ENVIAR(usuario);
+                    hm = new HiloMensaje(
+                            d,
+                            pb1,
+                            jd_mensaje
+                    );
+                    hm.start();
+                }
+            }
+
+            grupo.getMensajes().add(
+                    new Mensaje(usuarioActual.getUsuario() + ": " + ta_mensaje.getText(), new Date())
+            );
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        escribirUsuarios();
+        ta_mensaje.setText("");
+        cargarArbolChats();
+
+    }//GEN-LAST:event_bt_enviarMensajeGrupalActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        if (usuarioActual != null) {
+            usuarios.remove(usuarioActual);
+            for (Usuario usuario : usuarios) {
+                usuario.getAmigos().remove(usuarioActual);
+                usuario.getSolicitudes().remove(usuarioActual);
+            }
+            cambiarEstado(false);
+            list_personas.setModel(new DefaultListModel());
+            tree_chats.setModel(new DefaultTreeModel(new DefaultMutableTreeNode("Chats")));
+            cambiarEstado(true);
+            usuarioActual = null;
+            escribirUsuarios();
+        }
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -891,10 +1180,15 @@ public class Leogram extends javax.swing.JFrame {
     private javax.swing.JButton bt_cancelarIngreso;
     private javax.swing.JButton bt_crearUsuario;
     private javax.swing.JButton bt_enviarMensaje;
+    private javax.swing.JButton bt_enviarMensajeGrupal;
     private javax.swing.JButton bt_enviarSolicitud;
     private javax.swing.JButton bt_iniciarSesion;
     private javax.swing.JButton bt_solicitud;
     private javax.swing.JFormattedTextField ff_telefono_Crear;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -902,6 +1196,7 @@ public class Leogram extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -910,6 +1205,7 @@ public class Leogram extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
@@ -917,7 +1213,10 @@ public class Leogram extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JDialog jd_crearUsuario;
+    private javax.swing.JDialog jd_grupo;
     private javax.swing.JDialog jd_ingreso;
     private javax.swing.JDialog jd_leerMensajes;
     private javax.swing.JDialog jd_mensaje;
@@ -927,8 +1226,10 @@ public class Leogram extends javax.swing.JFrame {
     private javax.swing.JMenuItem jmi_crearUsuario;
     private javax.swing.JMenuItem jmi_iniciarSesion;
     private javax.swing.JLabel label_chat;
+    private javax.swing.JList<String> list_agregados;
     private javax.swing.JList<String> list_amigos;
     private javax.swing.JList<String> list_personas;
+    private javax.swing.JList<String> list_porAgregar;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JPanel panel_fondo;
     private javax.swing.JProgressBar pb1;
@@ -939,12 +1240,15 @@ public class Leogram extends javax.swing.JFrame {
     private javax.swing.JPopupMenu pm_chats;
     private javax.swing.JPopupMenu pm_grupos;
     private javax.swing.JMenuItem pmi_eliminarAmigo;
+    private javax.swing.JMenuItem pmi_enviarGrupo;
     private javax.swing.JMenuItem pmi_enviarMensaje;
     private javax.swing.JMenuItem pmi_leerChat;
+    private javax.swing.JMenuItem pmi_leerTodo;
     private javax.swing.JSpinner sp_conexion_Crear;
     private javax.swing.JTextArea ta_historial;
     private javax.swing.JTextArea ta_mensaje;
     private javax.swing.JTextField tf_apellido_Crear;
+    private javax.swing.JTextField tf_nombreGrupo;
     private javax.swing.JTextField tf_nombre_Crear;
     private javax.swing.JTextField tf_usuario_Crear;
     private javax.swing.JTextField tf_usuario_Ingresar;
@@ -1059,6 +1363,8 @@ public class Leogram extends javax.swing.JFrame {
         list_amigos.setEnabled(!b);
         bt_solicitud.setEnabled(!b);
         tree_chats.setEnabled(!b);
+        jButton1.setEnabled(!b);
+        jMenuItem1.setEnabled(!b);
     }
 
     private void cargarArbolChats() {
